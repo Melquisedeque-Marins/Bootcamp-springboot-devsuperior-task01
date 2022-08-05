@@ -9,13 +9,18 @@ import java.time.Instant;
 @Getter
 @Setter
 public class ClientDTO {
+    private Long id;
     private String name;
     private String cpf;
     private Double income;
     private Instant birthDate;
     private Integer children;
 
+    public ClientDTO(){
+    }
+
     public ClientDTO(Client client) {
+        id = client.getId();
         name = client.getName();
         cpf = client.getCpf();
         income = client.getIncome();
