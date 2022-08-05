@@ -34,4 +34,10 @@ public class ClientResource {
         ClientDTO dto = clientService.findById(id);
         return  ResponseEntity.ok().body(dto);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ClientDTO> update(@RequestBody ClientDTO dto, @PathVariable Long id){
+        ClientDTO dtoUpdated = clientService.update(dto, id);
+        return ResponseEntity.ok().body(dtoUpdated);
+    }
 }
