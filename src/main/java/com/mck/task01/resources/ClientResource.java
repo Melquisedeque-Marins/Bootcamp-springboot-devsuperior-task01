@@ -28,4 +28,10 @@ public class ClientResource {
         List<ClientDTO> listDto = clientService.findAll();
         return ResponseEntity.ok().body(listDto);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ClientDTO> findById(@PathVariable Long id){
+        ClientDTO dto = clientService.findById(id);
+        return  ResponseEntity.ok().body(dto);
+    }
 }
