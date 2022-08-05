@@ -23,5 +23,4 @@ public class Client {
     @Column(name = "birth_Date", columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private Instant birthDate;
     private Integer children;
-
 }
