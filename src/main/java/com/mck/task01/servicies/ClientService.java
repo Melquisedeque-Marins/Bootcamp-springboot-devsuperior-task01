@@ -7,6 +7,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RequiredArgsConstructor
 @Service
 public class ClientService {
@@ -18,5 +21,10 @@ public class ClientService {
         BeanUtils.copyProperties(dto, client);
         clientRepository.save(client);
         return new ClientDTO(client);
+    }
+
+    public List<ClientDTO> findAll() {
+        List<Client> list = clientRepository.findAll();
+        return list.stream().map(c -> new ClientDTO(c)).collect(Collectors.toList());
     }
 }
