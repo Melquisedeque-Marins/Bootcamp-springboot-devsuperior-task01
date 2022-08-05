@@ -3,6 +3,9 @@ package com.mck.task01.resources;
 import com.mck.task01.dtos.ClientDTO;
 import com.mck.task01.servicies.ClientService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -24,9 +27,15 @@ public class ClientResource {
     }
 
     @GetMapping
-    public ResponseEntity<List<ClientDTO>> findAll(){
-        List<ClientDTO> listDto = clientService.findAll();
-        return ResponseEntity.ok().body(listDto);
+    public ResponseEntity<Page<ClientDTO>> findAll(
+            @RequestParam (value = "page", defaultValue = "0") Integer page,
+            @RequestParam (value = "linesPerPage", defaultValue = "5") Integer linesPerPage,
+            @RequestParam (value = "orderBy", defaultValue = "name") String orderBy,
+            @RequestParam (value = "direction", defaultValue = "ASC") String direction
+    ){
+        PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
+        Page<ClientDTO> list = clientService.findAllPaged(pageRequest);
+        return ResponseEntity.ok().body(list);
     }
 
     @GetMapping("/{id}")
